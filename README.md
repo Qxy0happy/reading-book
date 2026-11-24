@@ -5,16 +5,16 @@
 
 把考研英语一历年真题的阅读文章与资料译文整理成可离线阅读的 Flutter 应用（Android + Linux）。
 
-当前仓库是走通骨架：内容流水线已实现 2024 年 Part A Text 1 的抽取与 SQLite 构建；Flutter 应用已具备目录、阅读页逐段展开译文、全部显示/隐藏、书签、继续阅读与设置。完整 2004–2025 语料与 Part B/C 仍在实施中。
+当前仓库包含 **2024 年 Part A Text 1 的真实英文正文与资料译文**，用于阅读页演示；完整 2004–2025 语料与 Part B/C 仍在实施中。
 
-<img src="docs/screenshots/reader.png" alt="Android 阅读页（合成示例内容）" width="360">
+<img src="docs/screenshots/reader.png" alt="Android 阅读页：2024 Text 1 真实正文" width="360">
 
-## 示例内容与版权
+## 内容与版权
 
-- 仓库**只提交合成示例**：`pipeline/config/sample-source.md` 是原创英文与中文，生成的 `app/assets/content.sqlite` 标记为 `sample=true`。
-- **真实真题正文与资料译文不进入仓库**。`pipeline/config/manifest.yaml` 只保存本地资料路径，供已购买资料的用户自行构建。
-- `scripts/check_sample_content.py` 在 CI 与发布流程中拒绝非示例内容库，避免误传真实内容。
-- 真题与资料译文的使用请遵守原始资料的版权与许可。
+- `app/assets/content.sqlite` 包含 2024 Text 1 的英文正文、段落译文与句译文。
+- 英文原文来自 Financial Times，中文译文来自黄皮书；版权归原权利人所有。仓库仅为个人学习与研究用途收录，不构成再分发许可。
+- **代码**采用 MIT；**内容**不适用 MIT，详见 [COPYRIGHT.md](COPYRIGHT.md)。
+- 权利人如希望移除内容，请通过 GitHub Issue 联系维护者。
 
 ## 目录
 
@@ -22,24 +22,11 @@
 app/         Flutter 应用（Android + Linux）
 pipeline/    Python + uv 内容流水线
 content/     本地生成的内容库（不提交）
-scripts/     CI 与内容守卫脚本
+docs/        截图与说明
 .github/     CI 与 Release workflow
 ```
 
-## 构建示例内容
-
-```bash
-cd pipeline
-uv sync --locked
-uv run readingbook-build          # 默认读取 config/manifest.sample.yaml
-uv run readingbook-validate
-uv run readingbook-inspect
-uv run pytest
-```
-
-`readingbook-build` 生成 `content/content.sqlite` 并复制到 `app/assets/content.sqlite`。默认路径就是仓库中的合成示例。
-
-## 运行应用
+## 构建应用
 
 ```bash
 cd app
@@ -63,21 +50,22 @@ Android 构建需要 JDK 21。Gradle 默认使用 `JAVA_HOME`；也可以在本�
 org.gradle.java.home=/path/to/jdk-21
 ```
 
-可选 release 签名：在 `app/android/key.properties` 中配置 `storeFile`、`storePassword`、`keyAlias`、`keyPassword`，并把 keystore 放到 `app/android/app/` 下。未配置时使用 debug 签名，适合本地试用。
+可选 release 签名：在 `app/android/key.properties` 中配置 `storeFile`、`storePassword`、`keyAlias`、`keyPassword`，并把 keystore 放到 `app/android/app/` 下。未配置时使用 debug 签名。
 
-## 使用本地真实内容
-
-如果你拥有对应的资料，可在本地用 `pipeline/config/manifest.yaml` 构建真实内容：
+## 内容流水线
 
 ```bash
 cd pipeline
-uv run readingbook-build \
-  --manifest config/manifest.yaml \
-  --out ../content/content.sqlite \
-  --app-assets ../app/assets/content.sqlite
+uv sync --locked
+uv run pytest
+uv run readingbook-build          # 默认构建原创示例，不覆盖 app/assets/content.sqlite
+uv run readingbook-validate
 ```
 
-请勿把生成的真实内容库提交到公开仓库；CI 的 `check_sample_content.py` 会拒绝它。
+- 默认 manifest 是 `config/manifest.sample.yaml`，源文件是 `config/sample-source.md`，用于开发与测试；生成到 `content/content.sqlite`。
+- 需要把构建结果复制到应用资源时，显式传入 `--app-assets ../app/assets/content.sqlite`。
+- `config/manifest.yaml` 指向本地真实资料路径，供已购买资料的用户自行扩展。
+- 当前流水线只实现 2024 Part A Text 1 的抽取；完整历年与 Part B/C 仍在实施中。
 
 ## 发布
 
@@ -87,7 +75,7 @@ uv run readingbook-build \
 - `reading-book-linux-amd64-<version>.tar.gz`
 - `SHA256SUMS`
 
-也可以在 Actions 页面手动触发 Release workflow 并填写 tag。Linux 产物解压后运行 `bundle/readingbook`。发布产物使用仓库中的合成示例内容。
+也可以在 Actions 页面手动触发 Release workflow 并填写 tag。Linux 产物解压后运行 `bundle/readingbook`。
 
 ## 技术栈
 
@@ -98,4 +86,4 @@ uv run readingbook-build \
 
 ## 许可证
 
-代码与示例内容采用 [MIT License](LICENSE)。字体采用 SIL Open Font License 1.1，许可证文本见 `app/assets/fonts/*-OFL.txt`。
+代码采用 [MIT License](LICENSE)。字体采用 SIL Open Font License 1.1，许可证文本见 `app/assets/fonts/*-OFL.txt`。阅读内容的版权与使用边界见 [COPYRIGHT.md](COPYRIGHT.md)。

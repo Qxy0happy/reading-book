@@ -19,10 +19,6 @@ def _default_out() -> Path:
     return REPO_ROOT / "content" / "content.sqlite"
 
 
-def _default_app_assets() -> Path:
-    return REPO_ROOT / "app" / "assets" / "content.sqlite"
-
-
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="readingbook")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -32,7 +28,7 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     build.add_argument("--manifest", type=Path, default=_default_manifest())
     build.add_argument("--out", type=Path, default=_default_out())
-    build.add_argument("--app-assets", type=Path, default=_default_app_assets())
+    build.add_argument("--app-assets", type=Path, default=None, help="optional app asset copy target")
     build.add_argument(
         "--strict", action="store_true", help="fail on any validation issue"
     )

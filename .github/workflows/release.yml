@@ -60,8 +60,6 @@ jobs:
             VERSION="${GITHUB_REF_NAME}"
           fi
           echo "VERSION=${VERSION#v}" >> "$GITHUB_ENV"
-      - name: Ensure only sample content
-        run: python3 scripts/check_sample_content.py app/assets/content.sqlite
       - name: Build arm64 APK
         working-directory: app
         run: |
@@ -96,8 +94,6 @@ jobs:
             VERSION="${GITHUB_REF_NAME}"
           fi
           echo "VERSION=${VERSION#v}" >> "$GITHUB_ENV"
-      - name: Ensure only sample content
-        run: python3 scripts/check_sample_content.py app/assets/content.sqlite
       - name: Build Linux
         working-directory: app
         run: flutter build linux --release

@@ -30,9 +30,6 @@ jobs:
       - name: Validate sample content
         working-directory: pipeline
         run: uv run readingbook-validate
-      - name: Ensure only sample content is committed
-        run: python3 scripts/check_sample_content.py app/assets/content.sqlite
-
   app:
     runs-on: ubuntu-latest
     steps:

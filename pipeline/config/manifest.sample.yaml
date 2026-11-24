@@ -1,0 +1,15 @@
+schema: 1
+sample: true
+content_version: "sample-2026-11-24.1"
+generated_at: "2026-11-24T00:00:00Z"
+papers:
+  - year: 2024
+    code: english1
+    title: "示例试卷"
+    parts:
+      A:
+        passages:
+          - text_no: 1
+            source: jingbian
+            source_path: "pipeline/config/sample-source.md"
+            title_en: "The Rhythm of Reading"

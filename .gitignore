@@ -1,0 +1,34 @@
+# Python pipeline
+pipeline/.venv/
+pipeline/__pycache__/
+pipeline/**/__pycache__/
+pipeline/.pytest_cache/
+pipeline/.ruff_cache/
+pipeline/*.egg-info/
+pipeline/src/*.egg-info/
+
+# Generated / private content
+/content/
+app/assets/content.sqlite.tmp
+app/build/
+app/.dart_tool/
+app/.flutter-plugins-dependencies
+app/android/.gradle/
+app/android/build/
+app/linux/flutter/ephemeral/
+
+# Internal planning (contains source-audit notes; kept local)
+.scratch/
+
+# Agent-local config
+.omp/
+app/.omp/
+
+# Android signing
+app/android/key.properties
+app/android/app/keystore.jks
+*.jks
+*.keystore
+
+# Local data
+*.bak-*

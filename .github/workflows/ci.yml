@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Install Python 3.14
+        run: uv python install 3.14
+      - name: Sync pipeline
+        working-directory: pipeline
+        run: uv sync --locked
+      - name: Run pipeline tests
+        working-directory: pipeline
+        run: uv run pytest -q
+      - name: Build sample content
+        working-directory: pipeline
+        run: uv run readingbook-build
+      - name: Validate sample content
+        working-directory: pipeline
+        run: uv run readingbook-validate
+      - name: Ensure only sample content is committed
+        run: python3 scripts/check_sample_content.py app/assets/content.sqlite
+
+  app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.50.1'
+          channel: stable
+          cache: true
+      - name: Flutter pub get
+        working-directory: app
+        run: flutter pub get
+      - name: Analyze
+        working-directory: app
+        run: flutter analyze
+      - name: Test
+        working-directory: app
+        run: flutter test

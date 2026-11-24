@@ -213,11 +213,12 @@ class _LibraryList extends StatelessWidget {
                   color: theme.colorScheme.primary,
                 ),
                 title: Text(
-                  '${passage.label} · ${passage.displayTitle}',
+                  passage.displayTitle,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
                 subtitle: Text(
+                  '${passage.hasTitle ? '${passage.label} · ' : ''}'
                   '${passage.wordCount} 词'
                   '${progressByKey[passage.key]?.isRead == true ? ' · 已读' : ''}',
                 ),

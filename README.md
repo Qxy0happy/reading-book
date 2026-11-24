@@ -5,13 +5,15 @@
 
 把考研英语一历年真题的阅读文章与资料译文整理成可离线阅读的 Flutter 应用（Android + Linux）。
 
-当前仓库包含 **2024 年 Part A Text 1 的真实英文正文与资料译文**，用于阅读页演示；完整 2004–2025 语料与 Part B/C 仍在实施中。
+当前仓库包含 **2004–2025 年 Part A 共 88 篇的真实英文正文与资料译文**；Part B/C 仍在实施中。
+
+<img src="docs/screenshots/library.png" alt="Android 目录页：2004–2025 年 Part A" width="360">
 
 <img src="docs/screenshots/reader.png" alt="Android 阅读页：2024 Text 1 真实正文" width="360">
 
 ## 内容与版权
 
-- `app/assets/content.sqlite` 包含 2024 Text 1 的英文正文、段落译文与句译文。
+- `app/assets/content.sqlite` 包含 2004–2025 年 Part A 共 88 篇的英文正文、段落译文与句译文。
 - 英文原文来自 Financial Times，中文译文来自黄皮书；版权归原权利人所有。仓库仅为个人学习与研究用途收录，不构成再分发许可。
 - **代码**采用 MIT；**内容**不适用 MIT，详见 [COPYRIGHT.md](COPYRIGHT.md)。
 - 权利人如希望移除内容，请通过 GitHub Issue 联系维护者。
@@ -65,7 +67,7 @@ uv run readingbook-validate
 - 默认 manifest 是 `config/manifest.sample.yaml`，源文件是 `config/sample-source.md`，用于开发与测试；生成到 `content/content.sqlite`。
 - 需要把构建结果复制到应用资源时，显式传入 `--app-assets ../app/assets/content.sqlite`。
 - `config/manifest.yaml` 指向本地真实资料路径，供已购买资料的用户自行扩展。
-- 当前流水线只实现 2024 Part A Text 1 的抽取；完整历年与 Part B/C 仍在实施中。
+- 流水线已实现 2004–2023 精讲册与 2024–2025 精编版的 Part A 抽取；Part B/C 仍在实施中。
 
 ## 发布
 

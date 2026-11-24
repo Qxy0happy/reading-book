@@ -1,14 +1,268 @@
 schema: 1
-content_version: "2026-11-24.1"
-generated_at: "2026-11-24T00:00:00Z"
+content_version: 2026-11-24.3
+generated_at: '2026-11-24T00:00:00Z'
 papers:
-  - year: 2024
-    code: english1
-    title: "2024 年全国硕士研究生招生考试英语（一）"
-    parts:
-      A:
-        passages:
-          - text_no: 1
-            source: jingbian
-            source_path: "../00.黄皮书/outputs/历年考研英语真题解析及复习思路(精编版)  (2022-2026)/markdown.md"
-            title_en: "What the Price of an Ancient Roman Nail Tells Us About Value"
+- year: 2004
+  code: english1
+  title: 2004 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingjiang
+      source_path: ../00.Past Papers [Translation]/outputs/2004年逐词逐句精讲册/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4
+- year: 2005
+  code: english1
+  title: 2005 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingjiang
+      source_path: ../00.Past Papers [Translation]/outputs/2005年逐词逐句精讲册/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4
+- year: 2006
+  code: english1
+  title: 2006 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingjiang
+      source_path: ../00.Past Papers [Translation]/outputs/2006年逐词逐句精讲册/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4
+- year: 2007
+  code: english1
+  title: 2007 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingjiang
+      source_path: ../00.Past Papers [Translation]/outputs/2007年逐词逐句精讲册/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4
+- year: 2008
+  code: english1
+  title: 2008 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingjiang
+      source_path: ../00.Past Papers [Translation]/outputs/2008年逐词逐句精讲册/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4
+- year: 2009
+  code: english1
+  title: 2009 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingjiang
+      source_path: ../00.Past Papers [Translation]/outputs/2009年逐词逐句精讲册/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4
+- year: 2010
+  code: english1
+  title: 2010 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingjiang
+      source_path: ../00.Past Papers [Translation]/outputs/2010年逐词逐句精讲册/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4
+- year: 2011
+  code: english1
+  title: 2011 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingjiang
+      source_path: ../00.Past Papers [Translation]/outputs/2011年逐词逐句精讲册/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4
+- year: 2012
+  code: english1
+  title: 2012 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingjiang
+      source_path: ../00.Past Papers [Translation]/outputs/2012年逐词逐句精讲册/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4
+- year: 2013
+  code: english1
+  title: 2013 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingjiang
+      source_path: ../00.Past Papers [Translation]/outputs/2013年逐词逐句精讲册/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4
+- year: 2014
+  code: english1
+  title: 2014 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingjiang
+      source_path: ../00.Past Papers [Translation]/outputs/2014年逐词逐句精讲册/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4
+- year: 2015
+  code: english1
+  title: 2015 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingjiang
+      source_path: ../00.Past Papers [Translation]/outputs/2015年逐词逐句精讲册/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4
+- year: 2016
+  code: english1
+  title: 2016 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingjiang
+      source_path: ../00.Past Papers [Translation]/outputs/2016年逐词逐句精讲册/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4
+- year: 2017
+  code: english1
+  title: 2017 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingjiang
+      source_path: ../00.Past Papers [Translation]/outputs/2017年逐词逐句精讲册/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4
+- year: 2018
+  code: english1
+  title: 2018 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingjiang
+      source_path: ../00.Past Papers [Translation]/outputs/2018年逐词逐句精讲册/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4
+- year: 2019
+  code: english1
+  title: 2019 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingjiang
+      source_path: ../00.Past Papers [Translation]/outputs/2019年逐词逐句精讲册/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4
+- year: 2020
+  code: english1
+  title: 2020 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingjiang
+      source_path: ../00.Past Papers [Translation]/outputs/2020年逐词逐句精讲册/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4
+- year: 2021
+  code: english1
+  title: 2021 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingjiang
+      source_path: ../00.Past Papers [Translation]/outputs/2021年逐词逐句精讲册/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4
+- year: 2022
+  code: english1
+  title: 2022 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingjiang
+      source_path: ../00.Past Papers [Translation]/outputs/2022年逐词逐句精讲册/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4
+- year: 2023
+  code: english1
+  title: 2023 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingjiang
+      source_path: ../00.Past Papers [Translation]/outputs/2023年逐词逐句精讲册/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4
+- year: 2024
+  code: english1
+  title: 2024 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingbian
+      source_path: ../00.黄皮书/outputs/历年考研英语真题解析及复习思路(精编版)  (2022-2026)/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4
+- year: 2025
+  code: english1
+  title: 2025 年全国硕士研究生招生考试英语（一）
+  parts:
+    A:
+      source: jingbian
+      source_path: ../00.黄皮书/outputs/历年考研英语真题解析及复习思路(精编版)  (2022-2026)/markdown.md
+      texts:
+      - 1
+      - 2
+      - 3
+      - 4

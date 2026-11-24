@@ -13,6 +13,7 @@ import yaml
 
 from .model import PaperDraft, PassageDraft
 from .sources.huangpishu import parse_jingbian_text
+from .sources.jingjiang import parse_jingjiang_part_a
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 SCHEMA_PATH = Path(__file__).resolve().parents[2] / "config" / "content-schema.sql"
@@ -65,6 +66,35 @@ def load_manifest(manifest_path: str | Path) -> tuple[dict[str, Any], list[Paper
         for part in ("A", "B", "C"):
             part_entry = parts.get(part)
             if not part_entry:
+                continue
+            if part_entry.get("texts"):
+                source = part_entry.get("source", "jingbian")
+                source_path = _resolve(part_entry["source_path"])
+                text_nos = [int(value) for value in part_entry["texts"]]
+                if source == "jingjiang":
+                    parsed = parse_jingjiang_part_a(source_path, year)
+                    for passage in parsed:
+                        if passage.text_no not in text_nos:
+                            continue
+                        display_order += 1
+                        passage.display_order = display_order
+                        passages.append(passage)
+                elif source == "jingbian":
+                    for text_no in text_nos:
+                        display_order += 1
+                        passages.append(
+                            parse_jingbian_text(
+                                source_path,
+                                year,
+                                text_no,
+                                title_en=None,
+                                display_order=display_order,
+                            )
+                        )
+                else:
+                    raise ValueError(
+                        f"unsupported source {source!r} for {year} Part {part}"
+                    )
                 continue
             for passage_entry in part_entry.get("passages", []):
                 display_order += 1
@@ -205,14 +235,14 @@ def build_content_db(
     try:
         conn.executescript(schema)
         conn.execute("PRAGMA foreign_keys = ON")
-        source_paths = sorted(
-            {
-                _resolve(entry["source_path"])
-                for paper in manifest["papers"]
-                for part in paper.get("parts", {}).values()
-                for entry in part.get("passages", [])
-            }
-        )
+        source_path_set: set[Path] = set()
+        for paper in manifest["papers"]:
+            for part in paper.get("parts", {}).values():
+                if part.get("source_path"):
+                    source_path_set.add(_resolve(part["source_path"]))
+                for entry in part.get("passages", []):
+                    source_path_set.add(_resolve(entry["source_path"]))
+        source_paths = sorted(source_path_set)
         audit_basis = (
             manifest_file.read_bytes()
             + b"\0"

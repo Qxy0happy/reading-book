@@ -1,7 +1,7 @@
 name: readingbook
 description: "考研英语阅读本：离线阅读英语一历年真题文章与段落译文。"
 publish_to: 'none'
-version: 0.1.1+2
+version: 0.2.0+3
 
 environment:
   sdk: ^3.14.0

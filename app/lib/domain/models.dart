@@ -54,7 +54,9 @@ class PassageSummary {
     return 'Part $part';
   }
 
-  String get displayTitle => titleZh ?? titleEn ?? '$year $label';
+  bool get hasTitle => (titleZh?.isNotEmpty ?? false) || (titleEn?.isNotEmpty ?? false);
+
+  String get displayTitle => titleZh ?? titleEn ?? label;
 }
 
 @immutable
@@ -88,7 +90,9 @@ class Passage {
     return 'Part $part';
   }
 
-  String get displayTitle => titleZh ?? titleEn ?? '$year $label';
+  bool get hasTitle => (titleZh?.isNotEmpty ?? false) || (titleEn?.isNotEmpty ?? false);
+
+  String get displayTitle => titleZh ?? titleEn ?? label;
 }
 
 @immutable

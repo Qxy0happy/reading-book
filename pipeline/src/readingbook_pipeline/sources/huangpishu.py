@@ -21,13 +21,27 @@ from ..segment import clean_text, detect_word_count, split_by_markers
 
 _CJK_RE = re.compile(r"[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]")
 _ROMAN_LABEL_RE = re.compile(r"^(?P<label>[IVXLCDM]+|[ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ]+)\s+(?P<body>.*)$")
-_TEXT_HEADING_RE = re.compile(r"^##\s+Text\s+(?P<text_no>\d+)\s*(?P<title>.*)$")
+_TEXT_HEADING_RE = re.compile(r"^#{1,3}\s+Text\s+(?P<text_no>\d+)\s*(?P<title>.*)$")
 _TRANSLATION_HEADING_RE = re.compile(r"^##\s+[一二三四五六七八九十]+、英汉对译")
 _YEAR_HEADING_RE = re.compile(r"^#\s+(?P<year>\d{4})\s*年")
 _SOURCE_RE = re.compile(r"^来源\s*[：:]\s*(?P<note>.*)$")
+_SENTENCE_MARKER_RE = re.compile(r"^[①-⑳]")
 _IMAGE_RE = re.compile(r"^!\[.*\]\(.*\)\s*$")
 _TABLE_START = "<table"
 _TABLE_END = "</table>"
+
+# Two 2024 sentences are split across source lines in the jingbian layout.
+# The translations below are taken from the same source blocks.
+_SENTENCE_ZH_OVERRIDES: dict[tuple[int, int, int, int], str] = {
+    (2024, 2, 8, 2): (
+        "乔杜里指出，英国应该探索这样一种可能性，即年长的哥哥姐姐 (在) "
+        "帮助父母 (照顾弟弟妹妹的过程中)“可能也会促进他们自身的社会性发展”。"
+    ),
+    (2024, 3, 10, 2): (
+        "一项建议是，AI 模型可以利用不受版权保护的图像做训练，"
+        "且 AI 公司可以与博物馆以及艺术家建立伙伴关系，奥尔蒂斯说道。"
+    ),
+}
 
 _UNICODE_ROMAN = {
     "Ⅰ": "I",
@@ -132,6 +146,7 @@ def _find_text_block(
         raise ValueError(f"Text {text_no} heading not found after year {year}")
 
     text_end = len(lines)
+    translation_seen = False
     for index in range(text_start + 1, len(lines)):
         line = lines[index]
         if _TEXT_HEADING_RE.match(line):
@@ -141,6 +156,22 @@ def _find_text_block(
             text_end = index
             break
         if _YEAR_HEADING_RE.match(line):
+            text_end = index
+            break
+        if _TRANSLATION_HEADING_RE.match(line):
+            translation_seen = True
+            continue
+        if (
+            translation_seen
+            and re.match(r"^##\s+", line)
+            and not re.match(
+                r"^##\s+(?:[一二三四五六七八九十]+、|\[?解题步骤\]?|"
+                r"技巧|总结|命题|解题|干扰|词汇|语法|长难句|"
+                r"答案|译文|全文|脉络|题眼|考点|高频|"
+                r"文章来源|文章结构|试题精解)",
+                line,
+            )
+        ):
             text_end = index
             break
     return text_start, text_end, title
@@ -219,16 +250,20 @@ def parse_jingbian_text(
 
         roman = _ROMAN_LABEL_RE.match(stripped)
         if roman and (at_paragraph_start or current_en is None):
-            finish_en()
-            current_en = _EnglishBlock(
-                label=_normalise_roman(roman.group("label")),
-                line_no=line_no,
-            )
+            label = _normalise_roman(roman.group("label"))
             body = roman.group("body").strip()
-            if body:
-                current_en.add(body)
-            at_paragraph_start = False
-            continue
+            # A paragraph label "I" is followed by a sentence marker in the
+            # jingbian layout.  A bare "I ..." is the English pronoun and must
+            # not split the paragraph.
+            if label == "I" and body and not _SENTENCE_MARKER_RE.match(body):
+                roman = None
+            else:
+                finish_en()
+                current_en = _EnglishBlock(label=label, line_no=line_no)
+                if body:
+                    current_en.add(body)
+                at_paragraph_start = False
+                continue
 
         if _cjk_ratio(stripped) > 0.2:
             finish_en()
@@ -249,6 +284,27 @@ def parse_jingbian_text(
         zh_slice = chinese_sentences[zh_cursor : zh_cursor + en_count]
         zh_cursor += en_count
         paragraphs.append(english_block.build(index + 1, zh_slice, str(path)))
+
+    for paragraph in paragraphs:
+        changed = False
+        for sentence in paragraph.sentences:
+            override = _SENTENCE_ZH_OVERRIDES.get(
+                (year, text_no, paragraph.ordinal, sentence.ordinal)
+            )
+            if override:
+                sentence.text_zh = override
+                changed = True
+        if changed:
+            paragraph.text_zh = (
+                clean_text(
+                    " ".join(
+                        sentence.text_zh
+                        for sentence in paragraph.sentences
+                        if sentence.text_zh
+                    )
+                )
+                or None
+            )
 
     if not paragraphs:
         raise ValueError(f"Text {text_no} has no paragraphs")

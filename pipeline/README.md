@@ -21,11 +21,12 @@ uv run pytest
 
 ## 结构
 
-- `src/readingbook_pipeline/sources/huangpishu.py`：精编版适配器。
+- `src/readingbook_pipeline/sources/huangpishu.py`：2024–2025 精编版适配器。
+- `src/readingbook_pipeline/sources/jingjiang.py`：2004–2023 逐词逐句精讲册适配器。
 - `src/readingbook_pipeline/segment.py`：切句与词数。
 - `src/readingbook_pipeline/build_sqlite.py`：SQLite 构建与校验。
 - `config/content-schema.sql`：内容库 schema 构建输入。
 
 ## 示例内容
 
-`config/sample-source.md` 的正文与译文均为本项目原创，用于流水线开发与测试。仓库中 `app/assets/content.sqlite` 已包含 2024 Text 1 的真实内容，构建示例不会覆盖它。
+`config/sample-source.md` 的正文与译文均为本项目原创，用于流水线开发与测试。仓库中 `app/assets/content.sqlite` 已包含 2004–2025 年 Part A 共 88 篇，构建示例不会覆盖它。

@@ -93,14 +93,16 @@ class _PassageHeader extends StatelessWidget {
             color: theme.colorScheme.onSurfaceVariant,
           ),
         ),
-        const SizedBox(height: 6),
-        Text(
-          passage.displayTitle,
-          style: theme.textTheme.headlineSmall?.copyWith(
-            fontWeight: FontWeight.w600,
-            height: 1.25,
+        if (passage.hasTitle) ...[
+          const SizedBox(height: 6),
+          Text(
+            passage.displayTitle,
+            style: theme.textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.w600,
+              height: 1.25,
+            ),
           ),
-        ),
+        ],
         const SizedBox(height: 8),
         Text(
           '${passage.wordCount} 词',

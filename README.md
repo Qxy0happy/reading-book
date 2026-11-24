@@ -7,6 +7,8 @@
 
 当前仓库是走通骨架：内容流水线已实现 2024 年 Part A Text 1 的抽取与 SQLite 构建；Flutter 应用已具备目录、阅读页逐段展开译文、全部显示/隐藏、书签、继续阅读与设置。完整 2004–2025 语料与 Part B/C 仍在实施中。
 
+<img src="docs/screenshots/reader.png" alt="Android 阅读页（合成示例内容）" width="360">
+
 ## 示例内容与版权
 
 - 仓库**只提交合成示例**：`pipeline/config/sample-source.md` 是原创英文与中文，生成的 `app/assets/content.sqlite` 标记为 `sample=true`。
